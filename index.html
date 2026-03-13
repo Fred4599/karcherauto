@@ -129,7 +129,7 @@
     .scroll-sticky {
       position: sticky; top: 0;
       height: 100vh; width: 100%;
-      overflow: hidden; background: #ebebeb;
+      overflow: hidden; background: #000;
     }
     #frameCanvas { position: absolute; top: 0; left: 0; }
     @media (max-width: 1024px) { .scroll-animation { height: 340vh; } }
@@ -788,7 +788,7 @@
       const img = frames[index];
       if (!img || !img.complete || !img.naturalWidth) return;
       const cw = canvas.width, ch = canvas.height;
-      ctx.fillStyle = '#ececec';
+      ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, cw, ch);
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = cw / ch;
@@ -798,9 +798,9 @@
         if (canvasRatio > imgRatio) { drawW = cw; drawH = cw / imgRatio; }
         else                        { drawH = ch; drawW = ch * imgRatio; }
       } else {
-        // Mobile: height-fill — car fills the full portrait viewport, sides crop to center
-        drawH = ch;
-        drawW = drawH * imgRatio;
+        // Mobile: width-fit — show the full animation, background fills above/below
+        drawW = cw;
+        drawH = cw / imgRatio;
       }
       drawX = (cw - drawW) / 2;
       drawY = (ch - drawH) / 2;
